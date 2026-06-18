@@ -1,0 +1,281 @@
+/* =====================
+   StickFighter — styles
+   ===================== */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --p1: #3b82f6;
+  --p2: #ef4444;
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --border: #334155;
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+  --gold: #f59e0b;
+  --green: #22c55e;
+}
+
+html, body { height: 100%; overflow-x: hidden; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+#app { min-height: 100vh; display: flex; flex-direction: column; }
+
+/* ——— Header ——— */
+.arena-header {
+  text-align: center;
+  padding: 16px 8px 8px;
+}
+.arena-header h1 { font-size: 2rem; letter-spacing: 2px; }
+.subtitle { color: var(--muted); font-size: 0.85rem; margin-top: 2px; }
+
+/* ——— Players row ——— */
+.players-row {
+  display: flex;
+  gap: 0;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 12px 8px 0;
+  flex-wrap: nowrap;
+}
+
+.player-panel {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  max-width: 340px;
+}
+
+.player-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  gap: 8px;
+}
+.player-header.p1 { background: rgba(59,130,246,0.15); border-bottom: 1px solid rgba(59,130,246,0.3); }
+.player-header.p2 { background: rgba(239,68,68,0.15); border-bottom: 1px solid rgba(239,68,68,0.3); }
+
+.player-name { font-weight: 700; font-size: 0.9rem; white-space: nowrap; }
+
+/* Ink meter */
+.ink-meter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  justify-content: flex-end;
+}
+.ink-label { font-size: 0.7rem; color: var(--muted); font-weight: 600; }
+.ink-track {
+  width: 90px;
+  height: 10px;
+  background: #0f172a;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.ink-fill {
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  transition: width 0.05s linear;
+}
+.ink-fill-p1 { background: linear-gradient(90deg, #1d4ed8, #3b82f6); }
+.ink-fill-p2 { background: linear-gradient(90deg, #b91c1c, #ef4444); }
+
+/* Drawing canvas */
+#canvas-p1, #canvas-p2 {
+  display: block;
+  width: 100%;
+  cursor: crosshair;
+  background: #fff;
+  touch-action: none;
+}
+
+.panel-footer {
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.btn-clear {
+  align-self: flex-start;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 4px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.15s;
+}
+.btn-clear:hover { border-color: var(--p2); color: var(--p2); }
+
+/* Stats display */
+.stats-display {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  font-size: 0.75rem;
+  min-height: 48px;
+}
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255,255,255,0.04);
+  border-radius: 4px;
+  padding: 3px 7px;
+}
+.stat-label { color: var(--muted); }
+.stat-value { font-weight: 700; font-size: 0.85rem; }
+.stat-hp .stat-value   { color: var(--green); }
+.stat-dmg .stat-value  { color: #f97316; }
+.stat-arm .stat-value  { color: #a78bfa; }
+.stat-def .stat-value  { color: #38bdf8; }
+
+/* VS divider */
+.vs-divider {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--gold);
+  padding: 0 12px;
+  align-self: center;
+  flex-shrink: 0;
+}
+
+/* Fight button zone */
+.fight-btn-zone {
+  text-align: center;
+  padding: 16px 8px 20px;
+}
+.btn-fight {
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  border: none;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 900;
+  padding: 14px 48px;
+  border-radius: 50px;
+  cursor: pointer;
+  letter-spacing: 2px;
+  box-shadow: 0 4px 24px rgba(239,68,68,0.4);
+  transition: all 0.15s;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+.btn-fight:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 6px 32px rgba(239,68,68,0.6);
+}
+.btn-fight:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+.fight-hint { color: var(--muted); font-size: 0.8rem; margin-top: 8px; }
+
+/* ——— Arena Phase ——— */
+#arena-phase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 12px;
+}
+
+#health-bars {
+  width: 100%;
+  max-width: 700px;
+  padding: 0 16px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.hb-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hb-label {
+  font-weight: 700;
+  font-size: 0.85rem;
+  min-width: 40px;
+}
+.hb-label.p1 { color: var(--p1); }
+.hb-label.p2 { color: var(--p2); }
+.hb-track {
+  flex: 1;
+  height: 16px;
+  background: #0f172a;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.hb-fill {
+  height: 100%;
+  border-radius: 8px;
+  transition: width 0.15s ease;
+}
+.hb-p1 { background: linear-gradient(90deg, #1d4ed8, #3b82f6); width: 100%; }
+.hb-p2 { background: linear-gradient(90deg, #b91c1c, #ef4444); width: 100%; }
+.hb-val { font-weight: 700; font-size: 0.85rem; min-width: 34px; text-align: right; }
+
+#arena-canvas {
+  display: block;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: #0a0f1e;
+  max-width: 100%;
+}
+
+/* ——— Result Overlay ——— */
+#result-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  backdrop-filter: blur(4px);
+}
+#result-box {
+  background: var(--surface);
+  border: 2px solid var(--gold);
+  border-radius: 20px;
+  padding: 40px 60px;
+  text-align: center;
+  box-shadow: 0 0 60px rgba(245,158,11,0.3);
+}
+#result-emoji { font-size: 4rem; margin-bottom: 12px; }
+#result-title {
+  font-size: 1.8rem;
+  font-weight: 900;
+  margin-bottom: 6px;
+  color: var(--gold);
+}
+#result-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 24px; }
+
+/* ——— Responsive ——— */
+@media (max-width: 640px) {
+  .players-row { gap: 4px; padding: 8px 4px 0; }
+  .vs-divider { font-size: 1rem; padding: 0 6px; }
+  .btn-fight { font-size: 1.1rem; padding: 12px 36px; }
+  .arena-header h1 { font-size: 1.5rem; }
+  .ink-track { width: 60px; }
+  #result-box { padding: 28px 36px; }
+  #result-title { font-size: 1.4rem; }
+}

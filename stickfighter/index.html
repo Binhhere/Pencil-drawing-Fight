@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>⚔️ StickFighter</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- === DRAWING PHASE === -->
+    <div id="draw-phase">
+      <div class="arena-header">
+        <h1>⚔️ StickFighter</h1>
+        <p class="subtitle">Vẽ chiến binh của bạn rồi chiến đấu!</p>
+      </div>
+
+      <div class="players-row">
+        <!-- Player 1 -->
+        <div class="player-panel" id="panel-p1">
+          <div class="player-header p1">
+            <span class="player-name">🔵 Người chơi 1</span>
+            <div class="ink-meter">
+              <span class="ink-label">INK</span>
+              <div class="ink-track">
+                <div class="ink-fill ink-fill-p1" id="ink-bar-1"></div>
+              </div>
+            </div>
+          </div>
+          <canvas id="canvas-p1" width="300" height="260"></canvas>
+          <div class="panel-footer">
+            <button class="btn-clear" id="clear-p1">🗑 Xóa</button>
+            <div id="stats-p1" class="stats-display"></div>
+          </div>
+        </div>
+
+        <div class="vs-divider">VS</div>
+
+        <!-- Player 2 -->
+        <div class="player-panel" id="panel-p2">
+          <div class="player-header p2">
+            <span class="player-name">🔴 Người chơi 2</span>
+            <div class="ink-meter">
+              <span class="ink-label">INK</span>
+              <div class="ink-track">
+                <div class="ink-fill ink-fill-p2" id="ink-bar-2"></div>
+              </div>
+            </div>
+          </div>
+          <canvas id="canvas-p2" width="300" height="260"></canvas>
+          <div class="panel-footer">
+            <button class="btn-clear" id="clear-p2">🗑 Xóa</button>
+            <div id="stats-p2" class="stats-display"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fight-btn-zone">
+        <button id="fight-btn" class="btn-fight" disabled>⚔️ FIGHT!</button>
+        <p class="fight-hint" id="fight-hint">Cả hai cần vẽ xong trước</p>
+      </div>
+    </div>
+
+    <!-- === ARENA PHASE === -->
+    <div id="arena-phase" style="display:none">
+      <div id="health-bars">
+        <div class="hb-row">
+          <span class="hb-label p1">🔵 P1</span>
+          <div class="hb-track">
+            <div class="hb-fill hb-p1" id="hp-bar-1"></div>
+          </div>
+          <span class="hb-val" id="hp-val-1">100</span>
+        </div>
+        <div class="hb-row">
+          <span class="hb-label p2">🔴 P2</span>
+          <div class="hb-track">
+            <div class="hb-fill hb-p2" id="hp-bar-2"></div>
+          </div>
+          <span class="hb-val" id="hp-val-2">100</span>
+        </div>
+      </div>
+      <canvas id="arena-canvas"></canvas>
+    </div>
+
+    <!-- === RESULT OVERLAY === -->
+    <div id="result-overlay" style="display:none">
+      <div id="result-box">
+        <div id="result-emoji">🏆</div>
+        <div id="result-title">Người chơi 1 thắng!</div>
+        <div id="result-sub"></div>
+        <button id="replay-btn" class="btn-fight">🔄 Chơi lại</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Dependencies (CDN, no build tool) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/poly-decomp/0.3.0/decomp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
