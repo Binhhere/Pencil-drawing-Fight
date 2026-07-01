@@ -227,4 +227,4 @@ Binhhere
 
 ## 📃 License
 
-No open-source license has been chosen yet.
+All Rights Reserved. This repository is public for portfolio and reference purposes only — no permission is granted to copy, modify, distribute, or commercially use this code. See [`LICENSE`](./LICENSE) for details.
